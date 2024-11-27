@@ -1,0 +1,24 @@
+.container {
+  height: 600px;
+  padding: 10px;
+  background: lightcyan;
+  border: 1px solid grey;
+
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .save-button {
+    background: lightgrey;
+    width: 100px;
+    height: 50px;
+  }
+
+  .form-error {
+    color: red;
+  }
+}

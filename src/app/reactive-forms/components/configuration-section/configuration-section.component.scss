@@ -1,0 +1,18 @@
+.configuration-section {
+  background: aliceblue;
+  margin: 5px;
+  border: 1px solid black;
+  width: 400px;
+  padding: 10px;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .remove-label {
+    margin-left: 110px;
+    cursor: pointer;
+    color: darkblue;
+  }
+}

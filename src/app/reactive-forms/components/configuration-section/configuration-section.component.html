@@ -1,0 +1,22 @@
+<div class="configuration-section">
+  <form *ngIf="inputForm; else noInput" [formGroup]="inputForm">
+    <div class="title">Configure input: {{getId()}}</div>
+    <demo-text-input label="Color" [formControlName]="'color'"></demo-text-input>
+    <ng-container *ngIf="!hasLabel(); else labelInputs">
+      <div><button (click)="addLabelGroup()">Add label</button></div>
+    </ng-container>
+  </form>
+</div>
+
+<ng-template #noInput>
+  <div class="title">Select an input to configure</div>
+</ng-template>
+
+<ng-template #labelInputs>
+
+  <form [formGroup]="getLabelGroup()">
+    Label: <span class="remove-label" (click)="removeLabelGroup()">Remove label</span>
+    <demo-text-input label="Id" [formControlName]="'id'"></demo-text-input>
+    <demo-text-input label="Text" [formControlName]="'text'"></demo-text-input>
+  </form>
+</ng-template>

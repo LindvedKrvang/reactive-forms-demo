@@ -1,0 +1,13 @@
+<div class="container">
+  <span class="row">
+    <demo-panel [inputs]="getInputs()" (inputSelected)="selectInput($event)"></demo-panel>
+    <demo-configuration-section [inputForm]="selectedFormGroup"></demo-configuration-section>
+  </span>
+  <span class="row">
+    <button class="save-button" [disabled]="form.invalid">Click me!</button>
+    <span *ngIf="form.invalid" class="form-error">
+      {{getErrorText()}}
+    </span>
+  </span>
+</div>
+{{ form.value | json }}

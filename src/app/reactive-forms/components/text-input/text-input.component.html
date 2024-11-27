@@ -1,0 +1,4 @@
+<div>
+  <span class="label">{{label}}</span>
+  <input type="text" [ngModel]="value" (focusout)="markAsTouched()" (ngModelChange)="onChange($event)" [disabled]="isDisabled">
+</div>
