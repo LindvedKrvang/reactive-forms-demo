@@ -18,6 +18,10 @@
     height: 50px;
   }
 
+  .save-button:active {
+    transform: scale(0.98);
+  }
+
   .form-error {
     color: red;
   }

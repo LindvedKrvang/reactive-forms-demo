@@ -4,7 +4,7 @@
     <demo-configuration-section [inputForm]="selectedFormGroup"></demo-configuration-section>
   </span>
   <span class="row">
-    <button class="save-button" [disabled]="form.invalid">Click me!</button>
+    <button class="save-button" [disabled]="form.invalid" (click)="save()">{{ form.invalid ? 'Disabled' : 'Save' }}</button>
     <span *ngIf="form.invalid" class="form-error">
       {{getErrorText()}}
     </span>

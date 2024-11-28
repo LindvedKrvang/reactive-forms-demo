@@ -17,7 +17,7 @@ export class ContainerComponent {
 
   public form: FormArray
 
-  constructor(inputStore: InputStoreService, fb: FormBuilder) {
+  constructor(private readonly inputStore: InputStoreService, fb: FormBuilder) {
     this.inputs = inputStore.getInputs()
     this.form = fb.array(this.inputs.map(input => {
         return fb.group({
@@ -59,5 +59,10 @@ export class ContainerComponent {
       }
       return ''
     }, '')
+  }
+
+  public save(): void {
+    const inputs: InputConfiguration[] = this.form.value
+    this.inputStore.saveInputs(inputs)
   }
 }
