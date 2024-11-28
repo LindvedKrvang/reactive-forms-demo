@@ -20,10 +20,17 @@ export class ContainerComponent {
   constructor(private readonly inputStore: InputStoreService, fb: FormBuilder) {
     this.inputs = inputStore.getInputs()
     this.form = fb.array(this.inputs.map(input => {
-        return fb.group({
-          id: [input.id],
-          color: [input.color, [ColorValidator.validate, Validators.required]]
-        })
+      const formGroup: FormGroup = fb.group({
+        id: [input.id],
+        color: [input.color, [ColorValidator.validate, Validators.required]]
+      })
+      if (input.label) {
+        formGroup.addControl('label', fb.nonNullable.group({
+          id: fb.nonNullable.control(input.label.id, [Validators.required]),
+          text: fb.nonNullable.control(input.label.text, [Validators.required])
+        }))
+      }
+      return formGroup
       })
     )
   }
