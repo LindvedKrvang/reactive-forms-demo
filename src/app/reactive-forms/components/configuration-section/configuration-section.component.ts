@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormGroup } from '@angular/forms'
+import { InputFormService } from '../../services/input-form.service'
 
 @Component({
   selector: 'demo-configuration-section',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 })
 export class ConfigurationSectionComponent {
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(private readonly inputFormService: InputFormService) {
   }
 
   @Input()
@@ -23,10 +24,10 @@ export class ConfigurationSectionComponent {
   }
 
   public addLabelGroup(): void {
-    this.inputForm?.addControl('label', this.fb.nonNullable.group({
-      id: this.fb.nonNullable.control('', [Validators.required]),
-      text: this.fb.nonNullable.control('', [Validators.required])
-    }))
+    if (!this.inputForm) {
+      return
+    }
+    this.inputFormService.adLabelFormToGroup(this.inputForm)
   }
 
   public removeLabelGroup(): void {

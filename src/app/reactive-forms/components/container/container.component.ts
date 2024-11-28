@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { InputConfiguration } from '../../model/input-configuration'
 import { InputStoreService } from '../../services/input-store.service'
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ColorValidator } from '../../validators/color-validator'
+import { FormArray, FormGroup } from '@angular/forms'
+import { InputFormService } from '../../services/input-form.service'
 
 @Component({
   selector: 'demo-container',
@@ -17,22 +17,9 @@ export class ContainerComponent {
 
   public form: FormArray
 
-  constructor(private readonly inputStore: InputStoreService, fb: FormBuilder) {
+  constructor(private readonly inputStore: InputStoreService, private readonly inputFormService: InputFormService) {
     this.inputs = inputStore.getInputs()
-    this.form = fb.array(this.inputs.map(input => {
-      const formGroup: FormGroup = fb.group({
-        id: [input.id],
-        color: [input.color, [ColorValidator.validate, Validators.required]]
-      })
-      if (input.label) {
-        formGroup.addControl('label', fb.nonNullable.group({
-          id: fb.nonNullable.control(input.label.id, [Validators.required]),
-          text: fb.nonNullable.control(input.label.text, [Validators.required])
-        }))
-      }
-      return formGroup
-      })
-    )
+    this.form = inputFormService.buildInputFormArray(this.inputs)
   }
 
   public selectInput(input: InputConfiguration): void {
@@ -44,28 +31,8 @@ export class ContainerComponent {
     return this.form.controls.map(control => control.value as InputConfiguration)
   }
 
-  public getErrorText(): string {
-    if (!this.form.invalid) {
-      return ''
-    }
-
-    return this.form.controls.filter(group => group.invalid).reduce((message: string, control: AbstractControl) => {
-      const group: FormGroup = control as FormGroup
-      if (group.get('color')?.hasError('invalidColor')) {
-        return `${message} Input ${group.get('id')?.value} has an invalid color: "${group.get('color')?.value}".`
-      }
-      const labelGroup: FormGroup | undefined = group.get('label') as FormGroup | undefined
-      if (labelGroup && labelGroup.invalid) {
-        if (labelGroup.get('id')?.hasError('required')) {
-          return `${message} No Id specified for label on Input ${group.get('id')?.value}.`
-        }
-
-        if (labelGroup.get('text')?.hasError('required')) {
-          return `${message} No text specified for label on Input ${group.get('id')?.value}.`
-        }
-      }
-      return ''
-    }, '')
+  public getErrorMessage(): string {
+    return this.inputFormService.getErrorMessageFromFormArray(this.form)
   }
 
   public save(): void {

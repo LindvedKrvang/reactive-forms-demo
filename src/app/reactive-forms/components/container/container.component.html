@@ -6,7 +6,7 @@
   <span class="row">
     <button class="save-button" [disabled]="form.invalid" (click)="save()">{{ form.invalid ? 'Disabled' : 'Save' }}</button>
     <span *ngIf="form.invalid" class="form-error">
-      {{getErrorText()}}
+      {{getErrorMessage()}}
     </span>
   </span>
 </div>
