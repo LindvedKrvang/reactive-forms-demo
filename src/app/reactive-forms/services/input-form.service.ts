@@ -27,28 +27,30 @@ export class InputFormService {
   constructor(private readonly fb: FormBuilder) { }
 
   public buildInputFormArray(inputs: InputConfiguration[]): FormArray {
-    return this.fb.array(inputs.map(input => {
-      const formGroup: FormGroup = this.fb.group({
-        id: [input.id]
-      })
-      if (input.color) {
-        this.addColorFormToGroup(formGroup, input.color)
+    return this.fb.array(inputs.map(this.buildInputFormGroup.bind(this)))
+  }
+
+  public buildInputFormGroup(input: InputConfiguration): FormGroup {
+    const formGroup: FormGroup = this.fb.group({
+      id: [input.id]
+    })
+    if (input.color) {
+      this.addColorFormToGroup(formGroup, input.color)
+    }
+    if (input.label) {
+      this.adLabelFormToGroup(formGroup, input.label)
+    }
+    switch (input.command?.type) {
+      case CommandType.ACTION: {
+        this.addActionCommandFormToGroup(formGroup, input.command)
+        break
       }
-      if (input.label) {
-        this.adLabelFormToGroup(formGroup, input.label)
+      case CommandType.MODIFIER: {
+        this.addModifierCommandFormToGroup(formGroup, input.command)
+        break
       }
-      switch (input.command?.type) {
-        case CommandType.ACTION: {
-          this.addActionCommandFormToGroup(formGroup, input.command)
-          break
-        }
-        case CommandType.MODIFIER: {
-          this.addModifierCommandFormToGroup(formGroup, input.command)
-          break
-        }
-      }
-      return formGroup
-    }))
+    }
+    return formGroup
   }
 
   private addColorFormToGroup(formGroup: FormGroup, color?: string): void {
@@ -132,7 +134,7 @@ export class InputFormService {
     return form.controls.filter(group => group.invalid).reduce((message: string, control: AbstractControl) => {
       const group: FormGroup = control as FormGroup
       if (group.get(COLOR_CONTROL_NAME)?.hasError('invalidColor')) {
-        return `${message} Input ${group.get(ID_CONTROL_NAME)?.value} has an invalid color: "${group.get(COMMAND_CONTROL_NAME)?.value}".`
+        return `${message} Input ${group.get(ID_CONTROL_NAME)?.value} has an invalid color: "${group.get(COLOR_CONTROL_NAME)?.value}".`
       }
 
       const labelGroup: FormGroup | undefined = group.get(LABEL_CONTROL_NAME) as FormGroup | undefined

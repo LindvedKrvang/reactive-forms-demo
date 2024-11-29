@@ -2,9 +2,10 @@
   <span class="row">
     <demo-panel [inputs]="getInputs()" (inputSelected)="selectInput($event)"></demo-panel>
     <demo-configuration-section [inputForm]="selectedFormGroup"></demo-configuration-section>
+    <button class="demo-button" [style]="{ 'margin-top': '5px'}" (click)="clearEverything()">Clear everything!</button>
   </span>
   <span class="row">
-    <button class="save-button" [disabled]="form.invalid" (click)="save()">{{ form.invalid ? 'Disabled' : 'Save' }}</button>
+    <button class="demo-button" [disabled]="form.invalid" (click)="save()">{{ form.invalid ? 'Disabled' : 'Save' }}</button>
     <span *ngIf="form.invalid" class="form-error">
       {{getErrorMessage()}}
     </span>

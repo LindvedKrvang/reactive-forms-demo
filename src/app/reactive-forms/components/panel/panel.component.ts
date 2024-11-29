@@ -16,12 +16,8 @@ export class PanelComponent {
 
   public selectedInput: InputConfiguration | undefined
 
-  public getInput(inputId: string): InputConfiguration {
-    const input: InputConfiguration | undefined = this.inputs.find(input => input.id === inputId)
-    if (!input) {
-      throw new Error(`Unknown inputId: ${inputId}`)
-    }
-    return input
+  public getInput(inputId: string): InputConfiguration | undefined {
+    return this.inputs.find(input => input.id === inputId)
   }
 
   public markSelectedInput(input: InputConfiguration): void {

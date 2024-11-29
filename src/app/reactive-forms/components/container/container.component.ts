@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { InputConfiguration } from '../../model/input-configuration'
 import { InputStoreService } from '../../services/input-store.service'
 import { FormArray, FormGroup } from '@angular/forms'
-import { InputFormService } from '../../services/input-form.service'
+import { ID_CONTROL_NAME, InputFormService } from '../../services/input-form.service'
 
 @Component({
   selector: 'demo-container',
@@ -12,7 +12,7 @@ import { InputFormService } from '../../services/input-form.service'
 export class ContainerComponent {
 
   public inputs: InputConfiguration[]
-  public selectedInput: InputConfiguration = { } as any
+  public selectedInput: InputConfiguration | undefined
   public selectedFormGroup: FormGroup | undefined
 
   public form: FormArray
@@ -24,7 +24,12 @@ export class ContainerComponent {
 
   public selectInput(input: InputConfiguration): void {
     this.selectedInput = input
-    this.selectedFormGroup = this.form.controls.find(control => control.get('id')?.value === input.id) as FormGroup
+    let formGroup: FormGroup | undefined = this.form.controls.find(control => control.get(ID_CONTROL_NAME)?.value === input.id) as FormGroup | undefined
+    if (!formGroup) {
+      formGroup = this.inputFormService.buildInputFormGroup(input)
+      this.form.push(formGroup)
+    }
+    this.selectedFormGroup = formGroup
   }
 
   public getInputs(): InputConfiguration[] {
@@ -38,5 +43,9 @@ export class ContainerComponent {
   public save(): void {
     const inputs: InputConfiguration[] = this.form.value
     this.inputStore.saveInputs(inputs)
+  }
+
+  public clearEverything(): void {
+    this.form = this.inputFormService.buildInputFormArray([])
   }
 }
