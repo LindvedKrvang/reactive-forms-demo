@@ -10,8 +10,28 @@
     font-weight: bold;
   }
 
-  .remove-label {
-    margin-left: 110px;
+  .command-option {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    height: 30px;
+    background: lightgrey;
+    cursor: pointer;
+
+  }
+
+  .command-option:hover {
+    background: grey;
+  }
+
+  .command-option:active {
+    transform: scale(0.98);
+  }
+
+  .clear-input-label {
+    margin-left: 170px;
     cursor: pointer;
     color: darkblue;
   }

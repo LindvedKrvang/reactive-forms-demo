@@ -1,0 +1,11 @@
+<div *ngIf="!hasLabel(); else labelInputs">
+  <button (click)="addLabelGroup()">Add label</button>
+</div>
+
+<ng-template #labelInputs>
+  <form [formGroup]="getLabelGroup()">
+    Label: <span class="remove-label" (click)="removeLabelGroup()">Remove label</span>
+    <demo-text-input label="Id" [formControlName]="ID_CONTROL_NAME"></demo-text-input>
+    <demo-text-input label="Text" [formControlName]="TEXT_CONTROL_NAME"></demo-text-input>
+  </form>
+</ng-template>

@@ -1,0 +1,7 @@
+<form [formGroup]="inputForm">
+  <demo-text-input label="Color" [formControlName]="COLOR_CONTROL_NAME"></demo-text-input>
+  <ng-container [formGroupName]="COMMAND_CONTROL_NAME">
+    <demo-text-input label="Modifier" [formControlName]="MODIFIER_ID_CONTROL_NAME"></demo-text-input>
+  </ng-container>
+  <demo-label [inputForm]="inputForm"></demo-label>
+</form>

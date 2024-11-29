@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { FormGroup } from '@angular/forms'
-import { InputFormService } from '../../services/input-form.service'
+import { ID_CONTROL_NAME, InputFormService } from '../../services/input-form.service'
+import { CommandType } from '../../model/input-configuration'
 
 @Component({
   selector: 'demo-configuration-section',
@@ -16,29 +17,40 @@ export class ConfigurationSectionComponent {
   public inputForm: FormGroup | undefined
 
   public getId(): string {
-    return this.inputForm?.get('id')?.value
+    return this.inputForm?.get(ID_CONTROL_NAME)?.value
   }
 
-  public hasLabel(): boolean {
-    return !!this.inputForm?.get('label')
+  public hasCommand(): boolean {
+    if (!this.inputForm) {
+      return false
+    }
+    return this.inputFormService.hasCommandGroup(this.inputForm)
   }
 
-  public addLabelGroup(): void {
+  public getCommandType(): CommandType {
+    return this.inputFormService.getActiveCommandType(this.inputForm!)
+  }
+
+  public addActionCommand(): void {
     if (!this.inputForm) {
       return
     }
-    this.inputFormService.adLabelFormToGroup(this.inputForm)
+    this.inputFormService.addActionCommandFormToGroup(this.inputForm)
   }
 
-  public removeLabelGroup(): void {
-    this.inputForm?.removeControl('label')
-  }
-
-  public getLabelGroup(): FormGroup {
-    const labelGroup: FormGroup | null = this.inputForm?.get('label') as FormGroup | null
-    if (!labelGroup) {
-      throw new Error('No FromGroup for "label"')
+  public addModifierCommand(): void {
+    if (!this.inputForm) {
+      return
     }
-    return labelGroup
+    this.inputFormService.addModifierCommandFormToGroup(this.inputForm)
   }
+
+  public clearInput(): void {
+    if (!this.inputForm) {
+      return
+    }
+    this.inputFormService.clearInputGroup(this.inputForm)
+  }
+
+  protected readonly CommandType = CommandType
 }

@@ -6,7 +6,10 @@ import { DisplayComponent } from './components/display/display.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { ConfigurationSectionComponent } from './components/configuration-section/configuration-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { TextInputComponent } from './components/text-input/text-input.component'
+import { TextInputComponent } from './components/text-input/text-input.component';
+import { LabelComponent } from './components/label/label.component';
+import { ActionCommandConfigurationComponent } from './components/action-command-configuration/action-command-configuration.component';
+import { ModifierCommandConfigurationComponent } from './components/modifier-command-configuration/modifier-command-configuration.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { TextInputComponent } from './components/text-input/text-input.component
     DisplayComponent,
     PanelComponent,
     ConfigurationSectionComponent,
-    TextInputComponent
+    TextInputComponent,
+    LabelComponent,
+    ActionCommandConfigurationComponent,
+    ModifierCommandConfigurationComponent
   ],
   exports: [
     ContainerComponent

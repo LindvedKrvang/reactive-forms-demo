@@ -1,9 +1,12 @@
 <div class="configuration-section">
   <form *ngIf="inputForm; else noInput" [formGroup]="inputForm">
     <div class="title">Configure input: {{getId()}}</div>
-    <demo-text-input label="Color" [formControlName]="'color'"></demo-text-input>
-    <ng-container *ngIf="!hasLabel(); else labelInputs">
-      <div><button (click)="addLabelGroup()">Add label</button></div>
+    <ng-container *ngIf="hasCommand(); else noCommand">
+      <ng-container [ngSwitch]="getCommandType()">
+        <span class="clear-input-label" (click)="clearInput()">Clear input</span>
+        <demo-action-command-configuration *ngSwitchCase="CommandType.ACTION" [inputForm]="inputForm"></demo-action-command-configuration>
+        <demo-modifier-command-configuration *ngSwitchCase="CommandType.MODIFIER" [inputForm]="inputForm"></demo-modifier-command-configuration>
+      </ng-container>
     </ng-container>
   </form>
 </div>
@@ -12,11 +15,12 @@
   <div class="title">Select an input to configure</div>
 </ng-template>
 
-<ng-template #labelInputs>
 
-  <form [formGroup]="getLabelGroup()">
-    Label: <span class="remove-label" (click)="removeLabelGroup()">Remove label</span>
-    <demo-text-input label="Id" [formControlName]="'id'"></demo-text-input>
-    <demo-text-input label="Text" [formControlName]="'text'"></demo-text-input>
-  </form>
+<ng-template #noCommand>
+  <div class="command-option" (click)="addActionCommand()">
+    Action
+  </div>
+  <div class="command-option" (click)="addModifierCommand()">
+    Modifier
+  </div>
 </ng-template>

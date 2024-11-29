@@ -13,11 +13,18 @@ const VALID_COLORS: string[] = [
 export class ColorValidator {
 
   public static validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    const value: string = control.value
-    if (VALID_COLORS.includes(value.toLowerCase())) {
+    const value: string | undefined = control.value
+    if (!value || VALID_COLORS.includes(value.toLowerCase())) {
       return null
     }
     return { invalidColor: true }
+  }
+
+  public static isValidColor(color?: string): boolean {
+    if (!color) {
+      return false
+    }
+    return VALID_COLORS.includes(color.toLowerCase())
   }
 }
 

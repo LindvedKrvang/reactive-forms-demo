@@ -5,84 +5,64 @@ const INPUTS_STORAGE_KEY: string = 'INPUTS'
 
 const INPUTS: InputConfiguration[] = [
   {
-    id: '1',
-    color: 'red'
+    id: '1'
   },
   {
-    id: '2',
-    color: 'green',
+    id: '2'
   },
   {
-    id: '3',
-    color: 'grey'
+    id: '3'
   },
   {
-    id: '4',
-    color: 'grey'
+    id: '4'
   },
   {
-    id: '5',
-    color: 'grey'
+    id: '5'
   },
   {
-    id: '6',
-    color: 'grey'
+    id: '6'
   },
   {
-    id: '7',
-    color: 'grey'
+    id: '7'
   },
   {
-    id: '8',
-    color: 'grey'
+    id: '8'
   },
   {
-    id: '9',
-    color: 'grey'
+    id: '9'
   },
   {
-    id: '10',
-    color: 'grey'
+    id: '10'
   },
   {
-    id: '11',
-    color: 'grey'
+    id: '11'
   },
   {
-    id: '12',
-    color: 'grey'
+    id: '12'
   },
   {
-    id: '13',
-    color: 'grey'
+    id: '13'
   },
   {
-    id: '14',
-    color: 'grey'
+    id: '14'
   },
   {
-    id: '15',
-    color: 'grey'
+    id: '15'
   },
   {
-    id: '16',
-    color: 'grey'
+    id: '16'
   },
   {
-    id: '17',
-    color: 'grey'
+    id: '17'
   },
   {
-    id: '18',
-    color: 'grey'
+    id: '18'
   },
   {
-    id: '19',
-    color: 'grey'
+    id: '19'
   },
   {
-    id: '20',
-    color: 'grey'
+    id: '20'
   }
 ]
 

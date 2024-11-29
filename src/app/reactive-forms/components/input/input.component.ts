@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { InputConfiguration } from '../../model/input-configuration'
+import { ColorValidator } from '../../validators/color-validator'
 
 @Component({
   selector: 'demo-input',
@@ -21,5 +22,12 @@ export class InputComponent {
 
   public emit(): void {
     this.inputClicked.emit(this.input)
+  }
+
+  public getColor(): string {
+    if (!this.input.color || !ColorValidator.isValidColor(this.input.color)) {
+      return 'grey'
+    }
+    return this.input.color
   }
 }
